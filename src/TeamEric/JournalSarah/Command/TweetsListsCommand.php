@@ -62,6 +62,6 @@ class TweetsListsCommand extends Command
 
             $parameters["max_id"] = $lastId;
 
-        } while (count($tweets) > 0);
+        } while (count($tweets) > 1);
     }
 }
