@@ -53,12 +53,13 @@ class TweetsListsCommand extends Command
 
             $lastId = null;
             foreach ($tweets as $tweet) {
-                $lastId = $tweet["id"] -1;
+                $lastId = $tweet["id_str"];
 
                 if (null === $search || strstr($tweet["text"], $search)) {
                     $output->writeln($tweet["id_str"] . " " . $tweet["text"]);
                 }
             }
+
             $parameters["max_id"] = $lastId;
 
         } while (count($tweets) > 0);
