@@ -1,0 +1,11 @@
+{
+    "name": "team-eric/journal-sarah",
+    "license": "MIT",
+    "autoload": {
+         "psr-0": { "" : "src/" }
+    },
+    "require": {
+        "symfony/console": "2.3.x",
+	"rvdv/guzzle-clients": "dev-master@dev"
+    }
+}
