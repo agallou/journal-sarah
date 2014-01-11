@@ -56,7 +56,7 @@ class TweetsListsCommand extends Command
                 $lastId = $tweet["id"] -1;
 
                 if (null === $search || strstr($tweet["text"], $search)) {
-                    $output->writeln($tweet["id"] . " " . $tweet["text"]);
+                    $output->writeln($tweet["id_str"] . " " . $tweet["text"]);
                 }
 
 
