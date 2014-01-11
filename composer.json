@@ -6,7 +6,7 @@
     },
     "require": {
         "symfony/console": "2.3.x",
-	"rvdv/guzzle-clients": "dev-master@dev",
-	"doctrine/common": "2.4.x"
+      	"rvdv/guzzle-clients": "dev-master@dev",
+       	"doctrine/common": "2.4.x"
     }
 }
