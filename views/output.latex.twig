@@ -2,11 +2,30 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, landscape]{geometry}
+\usepackage{wallpaper}
+
 
 \begin{document}
 
+
+%\LRCornerWallPaper{1}{Ressources/images/fond.png}
+
+
 {% for twitt in tweets %}
+
+%\ThisLRCornerWallPaper{1}{Ressources/images/fond.png}
+
 \newpage
+
+%\ThisCenterWallPaper{1}{Ressources/images/fond.png}
+{% if loop.index is odd %}
+\ThisURCornerWallPaper{1}{Ressources/images/fond_odd.png}
+{% else %}
+\ThisULCornerWallPaper{1}{Ressources/images/fond.png}
+{% endif %}
+
+
+
 \vspace*{\fill}
 
 \fontsize{30pt}{30pt}\selectfont
