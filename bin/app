@@ -16,7 +16,29 @@ $config = array(
   'token'           => '159978634-Vam6Ymupy3oEG7oiVMkqKnJh10T7E3ENgprIAbZP',
   'token_secret'    => 'AuCd9PRT34r7D0D08M5ymn3wiPf0bhBj37bGpjuBcWaUP',
 );
+
+
+$storage = new \Guzzle\Plugin\Cache\DefaultCacheStorage(
+  new \Guzzle\Cache\DoctrineCacheAdapter(
+    new \Doctrine\Common\Cache\FilesystemCache(__DIR__ . '/../cache/')
+  )
+);
+
+$canCache = new \Guzzle\Plugin\Cache\CallbackCanCacheStrategy(function($request) {
+  return true;
+}, function($response) {
+  return true;
+});
+
+$cachePlugin = new \Guzzle\Plugin\Cache\CachePlugin(array(
+  'can_cache' => $canCache,
+  'storage'   => $storage,
+  'revalidation' => new \Guzzle\Plugin\Cache\SkipRevalidation(),
+));
+
 $client = TwitterClient::factory($config);
+$client->addSubscriber($cachePlugin);
+
 
 $application->add(new ExportTweetsCommand(null, $client));
 $application->add(new TweetsListsCommand(null, $client));
