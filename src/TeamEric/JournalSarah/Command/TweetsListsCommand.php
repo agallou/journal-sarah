@@ -58,8 +58,6 @@ class TweetsListsCommand extends Command
                 if (null === $search || strstr($tweet["text"], $search)) {
                     $output->writeln($tweet["id_str"] . " " . $tweet["text"]);
                 }
-
-
             }
             $parameters["max_id"] = $lastId;
 
