@@ -5,7 +5,9 @@ include __DIR__ . "/../vendor/autoload.php";
 
 use TeamEric\JournalSarah\Command\ExportTweetsCommand;
 use Symfony\Component\Console\Application;
+use TeamEric\JournalSarah\Command\TweetsListsCommand;
 
 $application = new Application();
 $application->add(new ExportTweetsCommand);
+$application->add(new TweetsListsCommand);
 $application->run();
