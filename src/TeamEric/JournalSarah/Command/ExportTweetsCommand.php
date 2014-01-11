@@ -46,6 +46,10 @@ class ExportTweetsCommand extends Command
     {
           $twitt = $twitter->get(sprintf('statuses/show/%s.json', $twittId))->send()->json();
 
+          $expandedUrls = array();
+          foreach ($twitt['entities']['urls'] as $urlInfos) {
+            $expandedUrls[] = $urlInfos['expanded_url'];
+          }
           $export = array(
             'tweet_id' => $twitt['id_str'],
             'in_reply_to_status_id'      => $twitt['in_reply_to_status_id_str'],
@@ -56,7 +60,7 @@ class ExportTweetsCommand extends Command
             'retweeted_status_id'        => '', //TODO
             'retweeted_status_user_id'   => '', //TODO
             'retweeted_status_timestamp' => '', //TODO
-            'expanded_urls'              => implode(',', $twitt['entities']['urls']),
+            'expanded_urls'              => implode(',', $expandedUrls),
           );
           return $export;
     }
