@@ -2,12 +2,28 @@
 
 namespace TeamEric\JournalSarah\Command;
 
+use Rvdv\Guzzle\Twitter\TwitterClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class TweetsListsCommand extends Command
 {
+    /**
+     * @var TwitterClient
+     */
+    private $client;
+
+    /**
+     * @param string        $name
+     * @param TwitterClient $client
+     */
+    public function __construct($name = null, TwitterClient $client)
+    {
+        $this->client = $client;
+        parent::__construct($name);
+    }
+
     protected function configure()
     {
         $this
@@ -25,14 +41,13 @@ class TweetsListsCommand extends Command
         $username = $input->getArgument('username');
         $search = $input->getArgument('query');
 
-        $client = $this->makeClient();
         $parameters = array(
             'screen_name' => $username,
             'count' => 200,
         );
 
         do {
-            $tweets = $client->get(
+            $tweets = $this->client->get(
                 'statuses/user_timeline.json?' . http_build_query($parameters)
             )->send()->json();
 
@@ -49,16 +64,5 @@ class TweetsListsCommand extends Command
             $parameters["max_id"] = $lastId;
 
         } while (count($tweets) > 0);
-    }
-
-    public function makeClient()
-    {
-        $config = array(
-            'consumer_key'    => 'ShCj42SXL1AubTmIdrCsLg',
-            'consumer_secret' => 'DIeHtZjhSPhzddtSwmSJDc2LCMkLCuDW3dWJJMyHs',
-            'token'           => '159978634-Vam6Ymupy3oEG7oiVMkqKnJh10T7E3ENgprIAbZP',
-            'token_secret'    => 'AuCd9PRT34r7D0D08M5ymn3wiPf0bhBj37bGpjuBcWaUP',
-        );
-        return \Rvdv\Guzzle\Twitter\TwitterClient::factory($config);
     }
 }
