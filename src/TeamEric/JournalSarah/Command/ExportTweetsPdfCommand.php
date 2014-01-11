@@ -44,11 +44,14 @@ class ExportTweetsPdfCommand extends Command
         $loader = new \Twig_Loader_Filesystem(__DIR__ . '/../../../../views/');
         $twig = new \Twig_Environment($loader);
 
+        $filter = new \Twig_SimpleFilter('latex_escaping', function ($string) {
+          return str_replace(array('#', '@', '_'), array('\#', '\verb+@+', "\_"), $string);
+        }, array('is_safe' => array('html')));
+        $twig->addFilter($filter);
+
         $tweets = array();
         foreach ($this->getTweetIdsToExport() as $id) {
-          $tweet = $this->prepareTweet($id);
-          $tweet['text_latex'] = str_replace(array('#', '@', '_'), '', $tweet['text']);
-          $tweets[] = $tweet;
+          $tweets[] = $this->prepareTweet($id);
         }
         file_put_contents($filename, $twig->render('output.latex.twig', array(
           'tweets' => $tweets,
