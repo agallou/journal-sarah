@@ -2,14 +2,29 @@
 
 namespace TeamEric\JournalSarah\Command;
 
+use Rvdv\Guzzle\Twitter\TwitterClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ExportTweetsCommand extends Command
 {
+    /**
+     * @var TwitterClient
+     */
+    private $client;
+
+    /**
+     * @param string        $name
+     * @param TwitterClient $client
+     */
+    public function __construct($name = null, TwitterClient $client)
+    {
+        $this->client = $client;
+        parent::__construct($name);
+    }
+
     protected function configure()
     {
         $this
@@ -25,11 +40,10 @@ class ExportTweetsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filename = $input->getArgument('filename');
-        $twitter = $this->makeClient();
 
         $file = fopen($filename, 'w');
         foreach ($this->getTweetIdsToExport() as $id) {
-          fputcsv($file, $this->prepareTweet($twitter, $id));
+          fputcsv($file, $this->prepareTweet($id));
         }
         fclose($file);
 
@@ -42,9 +56,9 @@ class ExportTweetsCommand extends Command
         return json_decode(file_get_contents(__DIR__ . '/../../../../data/tweets.json'));
     }
 
-    public function prepareTweet($twitter, $twittId)
+    public function prepareTweet($twittId)
     {
-          $twitt = $twitter->get(sprintf('statuses/show/%s.json', $twittId))->send()->json();
+          $twitt = $this->client->get(sprintf('statuses/show/%s.json', $twittId))->send()->json();
 
           $expandedUrls = array();
           foreach ($twitt['entities']['urls'] as $urlInfos) {
@@ -63,16 +77,5 @@ class ExportTweetsCommand extends Command
             'expanded_urls'              => implode(',', $expandedUrls),
           );
           return $export;
-    }
-
-    public function makeClient()
-    {
-        $config = array(
-          'consumer_key'    => 'ShCj42SXL1AubTmIdrCsLg',
-          'consumer_secret' => 'DIeHtZjhSPhzddtSwmSJDc2LCMkLCuDW3dWJJMyHs',
-          'token'           => '159978634-Vam6Ymupy3oEG7oiVMkqKnJh10T7E3ENgprIAbZP',
-          'token_secret'    => 'AuCd9PRT34r7D0D08M5ymn3wiPf0bhBj37bGpjuBcWaUP',
-        );
-        return \Rvdv\Guzzle\Twitter\TwitterClient::factory($config);
     }
 }

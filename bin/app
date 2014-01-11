@@ -3,9 +3,21 @@
 
 include __DIR__ . "/../vendor/autoload.php";
 
+use Rvdv\Guzzle\Twitter\TwitterClient;
 use TeamEric\JournalSarah\Command\ExportTweetsCommand;
 use Symfony\Component\Console\Application;
+use TeamEric\JournalSarah\Command\TweetsListsCommand;
 
 $application = new Application();
-$application->add(new ExportTweetsCommand);
+
+$config = array(
+  'consumer_key'    => 'ShCj42SXL1AubTmIdrCsLg',
+  'consumer_secret' => 'DIeHtZjhSPhzddtSwmSJDc2LCMkLCuDW3dWJJMyHs',
+  'token'           => '159978634-Vam6Ymupy3oEG7oiVMkqKnJh10T7E3ENgprIAbZP',
+  'token_secret'    => 'AuCd9PRT34r7D0D08M5ymn3wiPf0bhBj37bGpjuBcWaUP',
+);
+$client = TwitterClient::factory($config);
+
+$application->add(new ExportTweetsCommand(null, $client));
+$application->add(new TweetsListsCommand(null, $client));
 $application->run();
