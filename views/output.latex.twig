@@ -1,0 +1,20 @@
+\documentclass[landscape]{memoir}
+\begin{document}
+
+{% for twitt in tweets %}
+\newpage
+\vspace*{\fill}
+
+\fontsize{30pt}{30pt}\selectfont
+{{ twitt.text_latex|raw }}
+\fontsize{10pt}{10pt}\selectfont
+\\
+\\
+{{ twitt.timestamp|date('l t F Y, G:i') }}
+\vspace*{\fill}
+
+{% endfor %}
+
+\end{document}
+
+
