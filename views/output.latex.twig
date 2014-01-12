@@ -3,37 +3,51 @@
 \usepackage[utf8]{inputenc}
 \usepackage[a4paper, landscape]{geometry}
 \usepackage{wallpaper}
-
+\usepackage{xcolor}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage[T1]{fontenc}
 
 \begin{document}
 
+\vspace*{\fill}
 
-%\LRCornerWallPaper{1}{Ressources/images/fond.png}
+\fontsize{30pt}{30pt}\selectfont
+Liste des tweets
+\\
+\\
+\fontsize{10pt}{10pt}\selectfont
+Date de début - Date de fin
+\vspace*{\fill}
 
 
 {% for twitt in tweets %}
 
-%\ThisLRCornerWallPaper{1}{Ressources/images/fond.png}
-
 \newpage
 
-%\ThisCenterWallPaper{1}{Ressources/images/fond.png}
-{% if loop.index is odd %}
-\ThisURCornerWallPaper{1}{Ressources/images/fond_odd.png}
-{% else %}
-\ThisULCornerWallPaper{1}{Ressources/images/fond.png}
+{% if with_background %}
+
+{% if twitt.user.screen_name == 'mereteresa' %}
+\TileWallPaper{100pt}{100pt}{Ressources/images/croix_motif.jpg}
+{% elseif twitt.user.screen_name == 'sarahhaim' %}
+\TileWallPaper{150pt}{150pt}{Ressources/images/fond_sarahhaim.jpeg}
 {% endif %}
 
+{% endif %}
 
 
 \vspace*{\fill}
 
 \fontsize{30pt}{30pt}\selectfont
-{{ twitt.text|latex_escaping }}
+\begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
+{{ twitt.text|latex_escaping }} 
+\end{mdframed}
+
 \fontsize{10pt}{10pt}\selectfont
-\\
-\\
+\begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
 {{ twitt.timestamp|date('l t F Y, G:i') }}
+\end{mdframed}
+
+
 \vspace*{\fill}
 
 {% endfor %}

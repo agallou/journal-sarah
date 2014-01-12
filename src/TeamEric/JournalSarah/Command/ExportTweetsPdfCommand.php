@@ -5,6 +5,7 @@ namespace TeamEric\JournalSarah\Command;
 use Rvdv\Guzzle\Twitter\TwitterClient;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -34,6 +35,11 @@ class ExportTweetsPdfCommand extends Command
                 'filename',
                 InputArgument::REQUIRED
             )
+            ->addOption(
+                'with-background',
+                null,
+                InputOption::VALUE_NONE
+            )
         ;
     }
 
@@ -55,6 +61,7 @@ class ExportTweetsPdfCommand extends Command
         }
         file_put_contents($filename, $twig->render('output.latex.twig', array(
           'tweets' => $tweets,
+          'with_background' => $input->getOption('with-background'),
         )));
 
         $output->writeln(sprintf('Write %s', $filename));
@@ -68,13 +75,15 @@ class ExportTweetsPdfCommand extends Command
     public function prepareTweet($twittId)
     {
           $twitt = $this->client->get(sprintf('statuses/show/%s.json', $twittId))->send()->json();
-
           $expandedUrls = array();
           foreach ($twitt['entities']['urls'] as $urlInfos) {
             $expandedUrls[] = $urlInfos['expanded_url'];
           }
           $export = array(
             'tweet_id' => $twitt['id_str'],
+            'user' => array(
+              'screen_name' => $twitt['user']['screen_name'],
+            ),
             'in_reply_to_status_id'      => $twitt['in_reply_to_status_id_str'],
             'in_reply_to_user_id'        => $twitt['in_reply_to_user_id_str'],
             'timestamp'                  => strtotime($twitt['created_at']), //TODO décalage de 1 sur la date problème fuseau horaire ?
