@@ -37,10 +37,18 @@ Date de début - Date de fin
 
 \vspace*{\fill}
 
+
 \fontsize{30pt}{30pt}\selectfont
 \begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
-{{ twitt.text|latex_escaping }} 
+{% if twitt.user.screen_name == 'mereteresa' %}
+\includegraphics{Ressources/images/fond_mereteresa.jpeg}
+{% elseif twitt.user.screen_name == 'sarahhaim' %}
+\includegraphics{Ressources/images/logo_sarahhaim.png}
+{% endif %}
+{{ twitt.text|latex_escaping }}
 \end{mdframed}
+
+
 
 \fontsize{10pt}{10pt}\selectfont
 \begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
