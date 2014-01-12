@@ -89,14 +89,8 @@ class ExportTweetsLatexCommand extends Command
             'user' => array(
               'screen_name' => $twitt['user']['screen_name'],
             ),
-            'in_reply_to_status_id'      => $twitt['in_reply_to_status_id_str'],
-            'in_reply_to_user_id'        => $twitt['in_reply_to_user_id_str'],
             'timestamp'                  => strtotime($twitt['created_at']), //TODO décalage de 1 sur la date problème fuseau horaire ?
-            'source'                     => $twitt['source'],
             'text'                       => $twitt['text'],
-            'retweeted_status_id'        => '', //TODO
-            'retweeted_status_user_id'   => '', //TODO
-            'retweeted_status_timestamp' => '', //TODO
             'expanded_urls'              => implode(',', $expandedUrls),
           );
           return $export;
