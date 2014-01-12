@@ -6,6 +6,7 @@ include __DIR__ . "/../vendor/autoload.php";
 use Rvdv\Guzzle\Twitter\TwitterClient;
 use TeamEric\JournalSarah\Command\ExportTweetsCommand;
 use TeamEric\JournalSarah\Command\ExportTweetsPdfCommand;
+use TeamEric\JournalSarah\Command\ExportTweetsLatexCommand;
 use Symfony\Component\Console\Application;
 use TeamEric\JournalSarah\Command\TweetsListsCommand;
 
@@ -47,6 +48,7 @@ $client = TwitterClient::factory($config);
 $client->addSubscriber($cachePlugin);
 
 $application->add(new ExportTweetsCommand(null, $client));
-$application->add(new ExportTweetsPdfCommand(null, $client));
+$application->add(new ExportTweetsPdfCommand());
+$application->add(new ExportTweetsLatexCommand(null, $client));
 $application->add(new TweetsListsCommand(null, $client));
 $application->run();
