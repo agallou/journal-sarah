@@ -9,6 +9,7 @@
 
 
 \begin{document}
+\pagenumbering{gobble}
 
 \vspace*{\fill}
 
@@ -16,6 +17,9 @@
 {{ "#QOTD"|latex_escaping }}
 
 {% set previoususer = "" %}
+
+\newpage
+\pagenumbering{arabic}
 
 {% for twitt in tweets %}
 
