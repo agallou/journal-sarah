@@ -27,9 +27,9 @@ Date de début - Date de fin
 {% if with_background %}
 
 {% if twitt.user.screen_name == 'mereteresa' %}
-\TileWallPaper{100pt}{100pt}{Ressources/images/croix_motif.jpg}
+\TileWallPaper{100pt}{100pt}{images/croix_motif.jpg}
 {% elseif twitt.user.screen_name == 'sarahhaim' %}
-\TileWallPaper{150pt}{150pt}{Ressources/images/fond_sarahhaim.jpeg}
+\TileWallPaper{150pt}{150pt}{images/fond_sarahhaim.jpeg}
 {% endif %}
 
 {% endif %}
@@ -41,9 +41,9 @@ Date de début - Date de fin
 \fontsize{30pt}{30pt}\selectfont
 \begin{mdframed}[hidealllines=false,backgroundcolor=white!20,outerlinecolor=grey!20]
 {% if twitt.user.screen_name == 'mereteresa' %}
-\includegraphics{Ressources/images/fond_mereteresa.jpeg}
+\includegraphics{images/fond_mereteresa.jpeg}
 {% elseif twitt.user.screen_name == 'sarahhaim' %}
-\includegraphics{Ressources/images/logo_sarahhaim.png}
+\includegraphics{images/logo_sarahhaim.png}
 {% endif %}
 {{ "@"|latex_escaping }}{{ twitt.user.screen_name }}
 \\
