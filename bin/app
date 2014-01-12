@@ -11,12 +11,14 @@ use TeamEric\JournalSarah\Command\TweetsListsCommand;
 
 $application = new Application();
 
+
 $config = array(
-  'consumer_key'    => 'ShCj42SXL1AubTmIdrCsLg',
-  'consumer_secret' => 'DIeHtZjhSPhzddtSwmSJDc2LCMkLCuDW3dWJJMyHs',
-  'token'           => '159978634-Vam6Ymupy3oEG7oiVMkqKnJh10T7E3ENgprIAbZP',
-  'token_secret'    => 'AuCd9PRT34r7D0D08M5ymn3wiPf0bhBj37bGpjuBcWaUP',
+  'consumer_key'    => '***REMOVED***',
+  'consumer_secret' => '***REMOVED***',
+  'token'           => '***REMOVED***',
+  'token_secret'    => '***REMOVED***',
 );
+
 
 
 $storage = new \Guzzle\Plugin\Cache\DefaultCacheStorage(
@@ -37,9 +39,12 @@ $cachePlugin = new \Guzzle\Plugin\Cache\CachePlugin(array(
   'revalidation' => new \Guzzle\Plugin\Cache\SkipRevalidation(),
 ));
 
+
+$config['request.params'] = array(
+  'cache.override_ttl' => 3600 * 24 * 365,
+);
 $client = TwitterClient::factory($config);
 $client->addSubscriber($cachePlugin);
-
 
 $application->add(new ExportTweetsCommand(null, $client));
 $application->add(new ExportTweetsPdfCommand(null, $client));
