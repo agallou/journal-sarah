@@ -6,8 +6,9 @@
     },
     "require": {
         "symfony/console": "2.3.x",
-     	"rvdv/guzzle-clients": "dev-master@dev",
-       	"doctrine/common": "2.4.x",
-        "twig/twig": "1.15.0"
+        "rvdv/guzzle-clients": "dev-master@dev",
+        "doctrine/common": "2.4.x",
+        "twig/twig": "1.15.0",
+        "twig/extensions": "1.0.1"
     }
 }
