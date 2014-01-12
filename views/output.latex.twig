@@ -7,17 +7,13 @@
 \usepackage[framemethod=tikz]{mdframed}
 \usepackage[T1]{fontenc}
 
+
 \begin{document}
 
 \vspace*{\fill}
 
-\fontsize{30pt}{30pt}\selectfont
-Liste des tweets
-\\
-\\
-\fontsize{10pt}{10pt}\selectfont
-Date de début - Date de fin
-\vspace*{\fill}
+\fontsize{50pt}{50pt}\selectfont
+{{ "#QOTD"|latex_escaping }}
 
 
 {% for twitt in tweets %}
