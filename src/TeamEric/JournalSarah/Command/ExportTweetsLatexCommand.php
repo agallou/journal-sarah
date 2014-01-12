@@ -57,6 +57,8 @@ class ExportTweetsLatexCommand extends Command
         }, array('is_safe' => array('html')));
         $twig->addFilter($filter);
 
+        $twig->addExtension(new \Twig_Extensions_Extension_Intl());
+
         $tweets = array();
         foreach ($this->getTweetIdsToExport() as $id) {
           $twitt = $this->prepareTweet($id);
