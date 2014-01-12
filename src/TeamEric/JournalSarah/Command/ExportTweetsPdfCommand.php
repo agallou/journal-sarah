@@ -57,8 +57,10 @@ class ExportTweetsPdfCommand extends Command
 
         $tweets = array();
         foreach ($this->getTweetIdsToExport() as $id) {
-          $tweets[] = $this->prepareTweet($id);
+          $twitt = $this->prepareTweet($id);
+          $tweets[$twitt['timestamp']] = $twitt;
         }
+        ksort($tweets);
         file_put_contents($filename, $twig->render('output.latex.twig', array(
           'tweets' => $tweets,
           'with_background' => $input->getOption('with-background'),
