@@ -40,20 +40,29 @@ Date de début - Date de fin
 
 \fontsize{30pt}{30pt}\selectfont
 \begin{mdframed}[hidealllines=false,backgroundcolor=white!20,outerlinecolor=grey!20,roundcorner=10pt]
+
+
+\begin{minipage}[c]{0.15\textwidth}
 {% if twitt.user.screen_name == 'mereteresa' %}
 \includegraphics{images/fond_mereteresa.jpeg}
 {% elseif twitt.user.screen_name == 'sarahhaim' %}
 \includegraphics{images/logo_sarahhaim.png}
 {% endif %}
+\end{minipage}
+\begin{minipage}[l]{0.50\textwidth}
+{{ twitt.user.name }} \\
 {{ "@"|latex_escaping }}{{ twitt.user.screen_name }}
-\\
+\end{minipage}
+
+~\\
+
 {{ twitt.text|latex_escaping }}
 
-\begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
 \fontsize{10pt}{10pt}\selectfont
-{{ twitt.timestamp|date('l t F Y, G:i') }}
-\end{mdframed}
 
+~\\
+
+{{ twitt.timestamp|date('l t F Y, G:i') }}
 
 \end{mdframed}
 
