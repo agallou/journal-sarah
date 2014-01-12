@@ -1,0 +1,77 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, landscape]{geometry}
+\usepackage{wallpaper}
+\usepackage{xcolor}
+\usepackage[framemethod=tikz]{mdframed}
+\usepackage[T1]{fontenc}
+
+\begin{document}
+
+\vspace*{\fill}
+
+\fontsize{30pt}{30pt}\selectfont
+Liste des tweets
+\\
+\\
+\fontsize{10pt}{10pt}\selectfont
+Date de début - Date de fin
+\vspace*{\fill}
+
+
+{% for twitt in tweets %}
+
+\newpage
+
+{% if with_background %}
+
+{% if twitt.user.screen_name == 'mereteresa' %}
+\TileWallPaper{100pt}{100pt}{images/croix_motif.jpg}
+{% elseif twitt.user.screen_name == 'sarahhaim' %}
+\TileWallPaper{150pt}{150pt}{images/fond_sarahhaim.jpeg}
+{% endif %}
+
+{% endif %}
+
+
+\vspace*{\fill}
+
+
+\fontsize{30pt}{30pt}\selectfont
+\begin{mdframed}[hidealllines=false,backgroundcolor=white!20,outerlinecolor=grey!20,roundcorner=10pt]
+
+
+\begin{minipage}[c]{0.15\textwidth}
+{% if twitt.user.screen_name == 'mereteresa' %}
+\includegraphics{images/fond_mereteresa.jpeg}
+{% elseif twitt.user.screen_name == 'sarahhaim' %}
+\includegraphics{images/logo_sarahhaim.png}
+{% endif %}
+\end{minipage}
+\begin{minipage}[l]{0.50\textwidth}
+{{ twitt.user.name }} \\
+{{ "@"|latex_escaping }}{{ twitt.user.screen_name }}
+\end{minipage}
+
+~\\
+
+{{ twitt.text|latex_escaping }}
+
+\fontsize{10pt}{10pt}\selectfont
+
+~\\
+
+\flushright
+{{ twitt.timestamp | localizeddate('long', 'short', 'fr') }}
+
+\end{mdframed}
+
+
+\vspace*{\fill}
+
+{% endfor %}
+
+\end{document}
+
+
