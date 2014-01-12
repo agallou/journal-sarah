@@ -17,7 +17,8 @@ Utilisation
 bin/app export:tweets tweets.csv
 ```
 
+```
+./bin/app export:pdf test.pdf
+```
 
-```
-./bin/app export:pdf test.latex && pdflatex test.latex
-```
+(pdflatex doit être installé).
