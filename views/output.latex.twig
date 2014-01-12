@@ -15,12 +15,13 @@
 \fontsize{50pt}{50pt}\selectfont
 {{ "#QOTD"|latex_escaping }}
 
+{% set previoususer = "" %}
 
 {% for twitt in tweets %}
 
 \newpage
 
-{% if with_background %}
+{% if with_background and previoususer != twitt.user.screen_name %}
 
 {% if twitt.user.screen_name == 'mereteresa' %}
 \TileWallPaper{100pt}{100pt}{images/croix_motif.jpg}
@@ -69,6 +70,8 @@
 
 
 \vspace*{\fill}
+
+{% set previoususer = twitt.user.screen_name  %}
 
 {% endfor %}
 
