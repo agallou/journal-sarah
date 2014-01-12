@@ -50,8 +50,8 @@ Date de début - Date de fin
 {{ twitt.text|latex_escaping }}
 
 \begin{mdframed}[hidealllines=true,backgroundcolor=white!20]
-\fontsize{10pt}{10pt}\selectfont
-{{ twitt.timestamp|date('l t F Y, G:i') }}
+
+{{ twitt.timestamp | localizeddate('long', 'short', 'fr') }}
 \end{mdframed}
 
 
